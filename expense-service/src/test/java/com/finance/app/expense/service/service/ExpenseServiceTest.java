@@ -90,7 +90,6 @@ public class ExpenseServiceTest {
         when(expenseRepository.save(Mockito.any())).thenReturn(PayloadHelper.mockExpense(101l));
         Long expenseId = expenseService.addUserExpense(PayloadHelper.mockExpenseDto());
         assertEquals(101L, expenseId);
-        verify(notificationClient, times(1)).sendNotification(any(NotificationDto.class));
     }
 
     private void mockValidUser() {

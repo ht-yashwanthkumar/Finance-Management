@@ -57,9 +57,9 @@ public class ExpenseService {
             long expenseId = saveExpense(expenseDto);
             budgetDto.setAmount(budgetDto.getAmount() - expenseDto.getAmount());
             budgetClient.updateBudget(expenseDto.getFkUserId(), expenseDto.getCategory(), budgetDto);
-            notificationClient.sendNotification(prepareNotificationDto(expenseDto, budgetDto));
             return expenseId;
         } else {
+            notificationClient.sendNotification(prepareNotificationDto(expenseDto, budgetDto));
             throw new BudgetExceededException(HttpStatus.BAD_REQUEST, "User budget exceeded for the category: " + expenseDto.getCategory());
         }
     }
