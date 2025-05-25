@@ -2,7 +2,7 @@
 Finance management application developed using micro services architecture
 
 
-A Spring Boot-based microservices application that helps users manage personal finances by creating budgets, tracking expenses, and receiving notifications on expenditure and budget exceedance.
+A Spring Boot-based microservices application that helps users manage personal finances by creating budgets, tracking expenses, and receiving notifications when budgets are exceeded.
 
 ---
 
@@ -36,7 +36,7 @@ Services communicate via REST using `Feign Client` with resilience patterns (lik
 
 - Set and manage budgets
 - Add and track expenses
-- Trigger notifications on expenditure and budget exceedance
+- Trigger notifications when budgets are exceeded.
 - Domain-driven design
 - Spring Data JPA with H2 in-memory DB
 - Open API (no authentication)
