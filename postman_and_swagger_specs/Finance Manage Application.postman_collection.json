@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "13a1cca8-c675-4a8a-ad7f-a940b2d000f1",
+		"name": "Finance Manage Application",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "2336983"
+	},
+	"item": [
+		{
+			"name": "user-service",
+			"item": [
+				{
+					"name": "Fetch All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:7070/user"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch User Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:7070/user/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"MR\",\r\n    \"firstName\": \"Chris\",\r\n    \"lastName\": \"Hemsworth\",\r\n    \"email\": \"chris.hemsworth@mail.com\",\r\n    \"phoneNumber\": \"+971582279099\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:7070/user"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"MR\",\r\n    \"firstName\": \"Chris\",\r\n    \"lastName\": \"Hemsworth\",\r\n    \"email\": \"chris.hemsworth@gmail.com\",\r\n    \"phoneNumber\": \"+971582279000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:7070/user/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"MR\",\r\n    \"firstName\": \"ChrisHemsworth\",\r\n    \"lastName\": \"HemsworthNew\",\r\n    \"email\": \"chris.hemsworth@mail.com\",\r\n    \"phoneNumber\": \"+971582279099\"\r\n}"
+						},
+						"url": "http://localhost:7070/user/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "budget-service",
+			"item": [
+				{
+					"name": "Create Budget",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category\": \"Bills\",\r\n    \"amount\": 10000,\r\n    \"fkUserId\": 101\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/budget"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Budget",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 500\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/budget/user/101/category/Groceries"
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve User Budget Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/budget/user/106"
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve User Budget Details By Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/budget/user/101/category/Bills"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Budget By Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/budget/user/101/category/Bills"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "expense-service",
+			"item": [
+				{
+					"name": "Retrieve User Expenses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:9090/expense/user/101"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Expense",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fkUserId\": 101,\r\n    \"category\": \"Groceries\",\r\n    \"description\": \"Groceries\",\r\n    \"amount\": 10000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:9090/expense"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "notification-service",
+			"item": [
+				{
+					"name": "Send Notification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fkUserId\": 101,\r\n    \"category\": \"Groceries\",\r\n    \"budgetAmount\": 10000,\r\n    \"expenseDescription\": \"Purchased groceries\",\r\n    \"expenseAmount\": 1000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:6060/notification/send-notification"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

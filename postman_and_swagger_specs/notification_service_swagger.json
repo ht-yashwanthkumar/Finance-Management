@@ -1,0 +1,103 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Finance Management Application",
+        "description": "This service responsible for sending notifications for the user",
+        "termsOfService": "FMA T&C",
+        "contact": {
+            "name": "Yashwanth Kumar HT",
+            "email": "ht.yashwanthkumar@gmail.com"
+        },
+        "license": {
+            "name": "FMA Licence LLC"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:6060",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/notification/send-notification": {
+            "post": {
+                "tags": [
+                    "notification-controller"
+                ],
+                "summary": "Send Notification",
+                "operationId": "triggerNotification",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NotificationDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Notification triggered successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/NotificationDto"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Service failed due to internal server error while sending notification",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseBodyVoid"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "NotificationDto": {
+                "type": "object",
+                "properties": {
+                    "fkUserId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "budgetAmount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "expenseDescription": {
+                        "type": "string"
+                    },
+                    "expenseAmount": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                }
+            },
+            "ResponseBodyVoid": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "object"
+                    }
+                }
+            }
+        }
+    }
+}

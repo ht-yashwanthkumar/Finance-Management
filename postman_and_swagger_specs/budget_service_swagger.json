@@ -1,0 +1,344 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Finance Management Application",
+        "description": "This service responsible for maintaining user budgets",
+        "termsOfService": "FMA T&C",
+        "contact": {
+            "name": "Yashwanth Kumar HT",
+            "email": "ht.yashwanthkumar@gmail.com"
+        },
+        "license": {
+            "name": "FMA Licence LLC"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/budget/user/{userId}/category/{category}": {
+            "get": {
+                "tags": [
+                    "budget-controller"
+                ],
+                "summary": "Get User Budget Details By Category",
+                "operationId": "getBudgetByUserAndCategory",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Budget Details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BudgetDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Budget not found for the request"
+                    },
+                    "500": {
+                        "description": "Service failed due to internal server error while fetching Budget details for the users",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseBodyBudgetDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "budget-controller"
+                ],
+                "summary": "Update User Budget ",
+                "operationId": "updateBudget",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BudgetDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Budget Updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BudgetDto"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Service failed due to internal server error while updating budget",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseBodyLong"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "budget-controller"
+                ],
+                "summary": "Delete User Budget By Category",
+                "operationId": "deleteBudgetByUserAndCategory",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete User Budget By Category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BudgetDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Budget not found for the request"
+                    },
+                    "500": {
+                        "description": "Service failed due to internal server error while deleting Budget details for the users",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseBodyVoid"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/budget": {
+            "post": {
+                "tags": [
+                    "budget-controller"
+                ],
+                "summary": "Save Budget Details",
+                "operationId": "saveBudget",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BudgetDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Budget created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BudgetDto"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Service failed due to internal server error while creating budget",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseBodyLong"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/budget/user/{userId}": {
+            "get": {
+                "tags": [
+                    "budget-controller"
+                ],
+                "summary": "Get User Budget Details",
+                "operationId": "getBudgetsByUser",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Budget Details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BudgetDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Budget not found for the request"
+                    },
+                    "500": {
+                        "description": "Service failed due to internal server error while fetching Budget details for the users",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseBodyListBudgetDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BudgetDto": {
+                "type": "object",
+                "properties": {
+                    "pkBudgetId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "fkUserId": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "ResponseBodyLong": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "ResponseBodyListBudgetDto": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BudgetDto"
+                        }
+                    }
+                }
+            },
+            "ResponseBodyBudgetDto": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/BudgetDto"
+                    }
+                }
+            },
+            "ResponseBodyVoid": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "object"
+                    }
+                }
+            }
+        }
+    }
+}

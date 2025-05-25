@@ -1,0 +1,167 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Finance Management Application",
+        "description": "This service responsible for tracking user expenses",
+        "termsOfService": "FMA T&C",
+        "contact": {
+            "name": "Yashwanth Kumar HT",
+            "email": "ht.yashwanthkumar@gmail.com"
+        },
+        "license": {
+            "name": "FMA Licence LLC"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:9090",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/expense": {
+            "post": {
+                "tags": [
+                    "expense-controller"
+                ],
+                "summary": "Save User Expenses",
+                "operationId": "saveExpense",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExpenseDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "User expense saved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExpenseDto"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Service failed due to internal server error while saving expense",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseBodyLong"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/expense/user/{userId}": {
+            "get": {
+                "tags": [
+                    "expense-controller"
+                ],
+                "summary": "Get User All Expense Details ",
+                "operationId": "getUserExpenses",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User expense retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExpenseDto"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "User expenses not found for the request"
+                    },
+                    "500": {
+                        "description": "Service failed due to internal server error while updating budget",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResponseBodyListExpenseDto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ExpenseDto": {
+                "type": "object",
+                "properties": {
+                    "pkExpenseId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "fkUserId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "timestamp": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "ResponseBodyLong": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "ResponseBodyListExpenseDto": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ExpenseDto"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
