@@ -1,8 +1,12 @@
-# Finance-Management
-Finance management application developed using micro services architecture
+# 💰Finance-Management
+A Spring Boot-based microservices application designed to help users effectively manage their personal finances.
+## 🧩 Key Features
 
+- Create and manage budgets
+- Track expenses in real time
+- Receive notifications when budgets are exceeded
 
-A Spring Boot-based microservices application that helps users manage personal finances by creating budgets, tracking expenses, and receiving notifications when budgets are exceeded.
+This application is built using the Microservices Architecture, promoting modularity, scalability, and ease of maintenance.
 
 ---
 
@@ -54,15 +58,17 @@ cd finance-management
 ### 2. Build and Run Services
 Each microservice is a separate Spring Boot project. You can start them individually:
 ```bash
-cd budget-service
+cd eureka-server
 mvn spring-boot:run
 ```
 #### Repeat the above for:
 - expense-service
 - notification-service
 - user-service
-- eureka-server
+- budget-service
 ##### Ensure ports don't conflict. Each service should run on a different port.
+### Startup Order:
+ The eureka-server must be launched before any other microservices. This ensures that service discovery is available when other services attempt to register themselves.
 
 ### 3. Access Swagger UI
 - notification_service : http://localhost:6060/swagger-ui/index.html
@@ -82,6 +88,8 @@ mvn test
 ```
 Each service contains unit tests for major business logic and API endpoints.
 
+---
+
 ## 🧱 Design Principles
 - API-First or Code-First approach (as chosen)
 - Domain-driven design with clear service boundaries
@@ -100,6 +108,7 @@ Each service contains unit tests for major business logic and API endpoints.
 | REST best practices               | ✅        |
 | Clean code                        | ✅        |
 | Unit tests and documentation      | ✅        |
+
 ---
 ## 📁 Folder Structure (Example)
 ````bash
@@ -118,6 +127,7 @@ finance-manager/
 ├── user-service/
 └── README.md
 ````
+---
 
 ## 🔗 Author
 👤 Yashwanth Kumar HT <br/>
