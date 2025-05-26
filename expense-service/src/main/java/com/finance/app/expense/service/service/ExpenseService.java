@@ -13,6 +13,7 @@ import com.finance.app.expense.service.exception.dto.BudgetExceededException;
 import com.finance.app.expense.service.exception.dto.UserBudgetNotFoundException;
 import com.finance.app.expense.service.exception.dto.UserNotFoundException;
 import com.finance.app.expense.service.repository.ExpenseRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,6 +75,7 @@ public class ExpenseService {
         return expenseRepository.save(expense).getPkExpenseId();
     }
 
+    @CircuitBreaker(name = "userServiceFB", fallbackMethod = "getUserFallback")
     private void validateUser(Long userId) {
         LOGGER.debug("Entered into validateUser method for userId: {}", userId);
         ResponseEntity<ResponseBody<UserDto>> useResponse = userClient.getUser(userId);
@@ -82,6 +84,7 @@ public class ExpenseService {
         }
     }
 
+    @CircuitBreaker(name = "budgetServiceFB", fallbackMethod = "getBudgetFallback")
     private BudgetDto getUserBudgetByCategory(long userId, String category) {
         LOGGER.debug("Entered into getUserBudgetByCategory method for userId: {} and category: {}", userId, category);
 
@@ -89,6 +92,16 @@ public class ExpenseService {
         if (isInvalidResponse(response))
             throw new UserBudgetNotFoundException(HttpStatus.BAD_REQUEST, "Budget not found for the user");
         return response.getBody().getData();
+    }
+
+    public UserDto getUserFallback(Long userId, Throwable throwable) {
+        LOGGER.error("Fallback method called for getUser with userId: {} due to: {}", userId, throwable.getMessage());
+        throw new UserNotFoundException(HttpStatus.BAD_REQUEST, "User Not Found - Fallback triggered");
+    }
+
+    public BudgetDto getBudgetFallback(Long userId, String category, Throwable throwable) {
+        LOGGER.error("Fallback method called for getUserBudgetByCategory with userId: {} and category: {} due to: {}", userId, category, throwable.getMessage());
+        throw new UserBudgetNotFoundException(HttpStatus.BAD_REQUEST, "Budget Not Found - Fallback triggered");
     }
 
     private ExpenseDto copyBeans(Expense expense) {

@@ -35,7 +35,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<ResponseBody<List<UserDto>>> fetchAllUsersDetails() {
-        LOGGER.debug("Entered into fetchAllUsersDetails method");
+        LOGGER.info("Entered into fetchAllUsersDetails method");
         List<UserDto> users = userService.fetchAllUsersDetails();
         return !users.isEmpty()
                 ? new ResponseEntity<ResponseBody<List<UserDto>>>(
@@ -51,7 +51,7 @@ public class UserController {
             @ApiResponse(responseCode = "500", description = "Service failed due to internal server error while saving User")})
     @PostMapping
     public ResponseEntity<ResponseBody<Long>> saveUser(@Valid @RequestBody UserDto userDto) {
-        LOGGER.debug("Entered into saveUser method");
+        LOGGER.info("Entered into saveUser method");
         return new ResponseEntity<ResponseBody<Long>>(
                 ResponseBody.of("User created Successfully", userService.saveUser(userDto)), HttpStatus.OK);
     }
@@ -65,7 +65,7 @@ public class UserController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<ResponseBody<UserDto>> fetchUserDetails(@PathVariable("userId") Long userId) {
-        LOGGER.debug("Entered into fetchUserDetails method");
+        LOGGER.info("Entered into fetchUserDetails method");
         Optional<UserDto> optionalUserDto = userService.fetchUserDetails(userId);
         return optionalUserDto.map(userDto -> new ResponseEntity<>(
                 ResponseBody.of("User information retrieved Successfully", userDto), HttpStatus.OK)).orElseGet(() -> new ResponseEntity<>(ResponseBody.of("User not found for the given ID: " + userId, null), HttpStatus.NOT_FOUND));
@@ -80,7 +80,7 @@ public class UserController {
     @PutMapping("/{userId}")
     public ResponseEntity<ResponseBody<Long>> updateUserDetails(@PathVariable("userId") Long userId,
                                                                 @RequestBody UserDto userDto) {
-        LOGGER.debug("Entered into updateUserDetails method");
+        LOGGER.info("Entered into updateUserDetails method");
         return new ResponseEntity<ResponseBody<Long>>(
                 ResponseBody.of("User updated Successfully", userService.updateUser(userId, userDto)), HttpStatus.OK);
     }
@@ -93,7 +93,7 @@ public class UserController {
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<ResponseBody<Void>> deleteUser(@PathVariable("userId") Long userId) {
-        LOGGER.debug("Entered into deleteUser method");
+        LOGGER.info("Entered into deleteUser method");
         userService.deleteUser(userId);
         return new ResponseEntity<ResponseBody<Void>>(
                 ResponseBody.of("User deleted Successfully"), HttpStatus.OK);

@@ -32,7 +32,7 @@ public class NotificationController {
             @ApiResponse(responseCode = "500", description = "Service failed due to internal server error while sending notification")})
     @PostMapping("/send-notification")
     public ResponseEntity<ResponseBody<Void>> triggerNotification(/*@Valid*/ @RequestBody NotificationDto notificationDto) {
-        LOGGER.debug("Entered into triggerNotification method");
+        LOGGER.info("Entered into triggerNotification method");
         notificationService.sendNotification(notificationDto);
         return new ResponseEntity<ResponseBody<Void>>(ResponseBody.of("Notification triggered Successfully"), HttpStatus.OK);
     }

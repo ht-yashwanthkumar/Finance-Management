@@ -88,6 +88,12 @@ public class BudgetService {
         }
     }
 
+    @CircuitBreaker(name = "userServiceFB", fallbackMethod = "getUserFallback")
+    public UserDto getUserFallback(Long userId, Throwable throwable) {
+        LOGGER.error("Fallback method called for getUser with userId: {} due to: {}", userId, throwable.getMessage());
+        throw new UserNotFoundException(HttpStatus.BAD_REQUEST, "User Not Found - Fallback triggered");
+    }
+
     private BudgetDto copyBeans(Budget budget) {
         return new ModelMapper().map(budget, BudgetDto.class);
     }

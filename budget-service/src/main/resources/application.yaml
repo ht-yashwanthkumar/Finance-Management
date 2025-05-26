@@ -19,9 +19,16 @@ eureka:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
 resilience4j:
-  retry:
+  circuitbreaker:
     instances:
-      user:
-        maxAttempts: 4
-        waitDuration: 3s
-        enableExponentialBackoff: true
+      userServiceFB:
+        registerHealthIndicator: true
+        failureRateThreshold: 50
+        waitDurationInOpenState: 5s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 5
+        minimumNumberOfCalls: 2
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} | %-5level | %logger{1.} | %msg%n"

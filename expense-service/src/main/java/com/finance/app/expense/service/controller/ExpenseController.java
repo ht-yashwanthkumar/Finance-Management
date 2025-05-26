@@ -34,7 +34,7 @@ public class ExpenseController {
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<ResponseBody<List<ExpenseDto>>> getUserExpenses(@PathVariable("userId") Long userId) {
-        LOGGER.debug("Entered into getUserExpenses method");
+        LOGGER.info("Entered into getUserExpenses method");
         List<ExpenseDto> expenseDtos = expenseService.getUserExpenses(userId);
         return !expenseDtos.isEmpty() ? new ResponseEntity<ResponseBody<List<ExpenseDto>>>(ResponseBody.of("User expenses retrieved Successfully", expenseDtos), HttpStatus.OK) : new ResponseEntity<ResponseBody<List<ExpenseDto>>>(ResponseBody.of("No user expenses found", Collections.emptyList()), HttpStatus.NOT_FOUND);
     }
@@ -44,7 +44,7 @@ public class ExpenseController {
             @ApiResponse(responseCode = "500", description = "Service failed due to internal server error while saving expense")})
     @PostMapping
     public ResponseEntity<ResponseBody<Long>> saveExpense(/*@Valid*/ @RequestBody ExpenseDto expenseDto) {
-        LOGGER.debug("Entered into saveExpense method");
+        LOGGER.info("Entered into saveExpense method");
         return new ResponseEntity<ResponseBody<Long>>(ResponseBody.of("User expense saved Successfully", expenseService.addUserExpense(expenseDto)), HttpStatus.OK);
     }
 }

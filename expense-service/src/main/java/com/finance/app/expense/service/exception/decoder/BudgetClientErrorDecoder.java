@@ -20,6 +20,7 @@ public class BudgetClientErrorDecoder implements ErrorDecoder {
         return switch (response.status()) {
             case 404 -> new UserBudgetNotFoundException(HttpStatus.NOT_FOUND, "Budget not found for the user");
             case 503 -> new ServiceException(HttpStatus.SERVICE_UNAVAILABLE, "Service temporarily unavailable");
+            case 504 -> new ServiceException(HttpStatus.GATEWAY_TIMEOUT, "Connection time out");
             //
             //
             default -> new Exception("Generic error");

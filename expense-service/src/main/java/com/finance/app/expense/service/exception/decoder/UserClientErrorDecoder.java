@@ -19,6 +19,7 @@ public class UserClientErrorDecoder implements ErrorDecoder {
         return switch (response.status()) {
             case 404 -> new UserNotFoundException(HttpStatus.NOT_FOUND, "User not found");
             case 503 -> new ServiceException(HttpStatus.SERVICE_UNAVAILABLE, "Service temporarily unavailable");
+            case 504 -> new ServiceException(HttpStatus.GATEWAY_TIMEOUT, "Connection time out");
             //
             //
             default -> new Exception("Generic error");

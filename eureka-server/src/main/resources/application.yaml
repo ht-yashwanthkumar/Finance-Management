@@ -7,3 +7,6 @@ eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} | %-5level | %logger{1.} | %msg%n"
