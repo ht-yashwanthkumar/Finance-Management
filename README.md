@@ -27,6 +27,7 @@ This application is built using the Microservices Architecture, promoting modula
 | `expense-service`   | Record and track expenses across categories      |
 | `notification-service` | Sends alerts when expenses exceed budgets     |
 | `eureka-server` | Service Discovery via Eureka |
+| `api-gateway` | Gateway service to route APIs and to introduce cross cutting concerns |
 
 ---
 
@@ -66,6 +67,8 @@ mvn spring-boot:run
 - notification-service
 - user-service
 - budget-service
+- api-gateway
+  
 ##### Ensure ports don't conflict. Each service should run on a different port.
 ### Startup Order:
  The eureka-server must be launched before any other microservices. This ensures that service discovery is available when other services attempt to register themselves.
@@ -79,7 +82,12 @@ mvn spring-boot:run
 
 ---
 ## 📬 Postman Collection
-  - Use the provided [Postman collection](https://github.com/ht-yashwanthkumar/Finance-Management/blob/main/postman_and_swagger_specs/Finance%20Manage%20Application.postman_collection.json) to test APIs.
+
+  Utilize the provided Postman collection to test the APIs. You may choose to access the services directly or route the requests through the API Gateway, depending on your testing needs.
+   - Via API Gateway: Route requests through the API Gateway to test end-to-end flows.
+     - [Postman collection with api gateway](https://github.com/ht-yashwanthkumar/Finance-Management/blob/main/postman_and_swagger_specs/Finance%20Manage%20Application%20ApiGateway.postman_collection.json)
+   - Direct Service Access: Call individual microservices directly for isolated testing.
+     - [Postman collection direct service acess](https://github.com/ht-yashwanthkumar/Finance-Management/blob/main/postman_and_swagger_specs/Finance%20Manage%20Application.postman_collection.json)
 ---
 
 ## 🧪 Testing
@@ -101,6 +109,7 @@ Each service contains unit tests for major business logic and API endpoints.
 | --------------------------------- | -------- |
 | Well-defined domain boundaries    | ✅        |
 | Inter-service communication       | ✅        |
+| Gateway to route APIs             | ✅        |
 | Domain-driven database design     | ✅        |
 | Failure handling/resilience       | ✅        |
 | Application starts without errors | ✅        |
@@ -114,6 +123,7 @@ Each service contains unit tests for major business logic and API endpoints.
 ````bash
 finance-manager/
 
+├── api-gateway/
 ├── budget-service/
 ├── eureka-server/
 ├── expense-service/
@@ -122,6 +132,7 @@ finance-manager/
 │   └── budget_service_swagger.json
 │   └── expense_service_swagger.json
 │   └── Finance Manage Application.postman_collection.json
+│   └── Finance Manage Application ApiGateway.postman_collection.json
 │   └── notification_service_swagger.json
 │   └── user_service_swagger.json
 ├── user-service/
