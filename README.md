@@ -140,6 +140,14 @@ finance-manager/
 ````
 ---
 
+## 🕸️ Sequence Diagram
+
+This sequence diagram captures the end-to-end interaction between components involved in Finance Management System.
+
+![image](https://github.com/user-attachments/assets/8bc32dfb-e0a9-4937-8ab5-2c9db0397f92)
+
+---
+
 ## 🔗 Author
 👤 Yashwanth Kumar HT <br/>
 📧 ht.yashwanthkumar@gmail.com <br/>
